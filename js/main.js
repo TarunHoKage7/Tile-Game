@@ -22,4 +22,16 @@ if(count > max(high)){
     remove min of high
     new screen, show(new high score) show(podium);
 }
+
+
+
+here,
+searched is the number of rows removed; starts at 0
+score is the number of blacks clicked; starts at 0
+4 is for the initial 4 all-white rows
+lives = fixed number(1/3/5)
+searched - (score + 4) is the number of lives left
+if(searched - score - 4 == lives){
+    end(return score)
+}
 */
