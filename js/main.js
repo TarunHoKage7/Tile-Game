@@ -35,3 +35,55 @@ if(searched - score - 4 == lives){
     end(return score)
 }
 */
+
+let podium = localStorage.getItem('scores' || '[]');
+let tiles = document.querySelectorAll(".row");
+let score = 0;
+let searched = 0;
+let lives = 1;
+let speed = 20;
+
+
+console.log(tiles);
+
+function startGame(){
+    console.log(lives);
+    //let move = document.querySelectorAll(".row");
+    let move = document.querySelectorAll(".rows");
+    let start = 0;
+    while(start < 240){
+        //for(let i = 0; i < move.length; i++){
+        //    move[i].setAttribute("style", `transform: translateY(${speed}px)`);
+        //}
+        move[0].setAttribute("style", `transform: translateY(${start}px)`);
+        start += speed;
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    if(searched - score - 4 == lives){
+
+        }
+        if(score%10 == 0){
+            speed = increaseSpeed()
+        }
+}
+
+function increaseSpeed(score){
+    speed += 30;
+    return speed;
+}
+

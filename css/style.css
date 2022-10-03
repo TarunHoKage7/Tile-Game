@@ -12,6 +12,10 @@ h2{
     color: yellow;
 }
 
+embed{
+    display: none;
+}
+
 .doofen{
     height: 50px;
     width: 50px;
