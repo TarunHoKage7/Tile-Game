@@ -23,8 +23,27 @@ h2{
 }
 
 img{
-    width: 100%;
-    height: 100%;
+    width: 40%;
+    height: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#play > *{
+    text-decoration: none;
+}
+
+#play{
+    position: fixed;
+    top: 30%;
+    left: 60%;
+    background-color: rgb(215, 239, 52);
+    color: #180624;
+    font-size: xx-large;
+    border-radius: 10px;
+    display: inline;
+    padding: 10px;
 }
 
 #contain{
@@ -111,4 +130,26 @@ width: 100%;
 
 .black {
     background-color: black;
+}
+
+
+@media only screen and (max-width: 768px) {
+
+#play{
+    position: fixed;
+    top: 90%;
+    left: 20%;
+    background-color: rgb(215, 239, 52);
+    color: #180624;
+    font-size: large;
+    border-radius: 10px;
+    display: inline;
+    padding: 10px;
+}
+    
+img{
+    width: 100%;
+    height: 100%;
+}
+
 }

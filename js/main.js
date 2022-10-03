@@ -31,7 +31,7 @@ const rows = document.querySelector('.rows')
 const counter = document.querySelector('#counter');
 // always start from this value in mind
 const tilesPosition =  tiles.getBoundingClientRect().top;
-
+let growth;
 
 // get the size of the element.
 const rowSize = 100;
@@ -64,7 +64,9 @@ rows.addEventListener('click',(e) => {
             updateCounter();
 
         } else {
-            alert('you loose');
+            const music = new Audio(src="/assets/piano.mp3");
+            music.play();
+            clearInterval();
             console.log('you loose!')
             return false;
         }
@@ -125,6 +127,8 @@ function checkNewRowOrLoose() {
                 while(lastElement.hasChildNodes()) {
                     if(lastElement.firstChild.classList.contains("black")) {
                         console.log('you loose position l-107');
+                        const music = new Audio(src="/assets/piano.mp3");
+                        music.play();
                         // we can't continue, he loose a life
                         return false
                     } else {
