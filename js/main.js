@@ -26,6 +26,7 @@ if(count > max(high)){
 }
 */
 
+
 const tiles = document.querySelector('#tiles')
 const rows = document.querySelector('.rows')
 const counter = document.querySelector('#counter');
@@ -61,10 +62,12 @@ rows.addEventListener('click',(e) => {
         if(e.target.classList.contains('black')) {
             console.log('click on black')
             e.target.classList.remove('black');
+            const music = new Audio(src="/assets/mario_coin.mp3", volume="1");
+            music.play();
             updateCounter();
 
         } else {
-            const music = new Audio(src="/assets/piano.mp3");
+            const music = new Audio(src="/assets/mario_die.mp3");
             music.play();
             clearInterval();
             console.log('you loose!')
@@ -127,7 +130,7 @@ function checkNewRowOrLoose() {
                 while(lastElement.hasChildNodes()) {
                     if(lastElement.firstChild.classList.contains("black")) {
                         console.log('you loose position l-107');
-                        const music = new Audio(src="/assets/piano.mp3");
+                        const music = new Audio(src="/assets/mario_die.mp3");
                         music.play();
                         // we can't continue, he loose a life
                         return false
@@ -168,7 +171,7 @@ function play(){
 
                 let lastElement = rows.lastElementChild;
                 let top = lastElement.getBoundingClientRect().top
-                if(top  === limitPosition) {
+                if(Math.ceil(top)  === Math.ceil(limitPosition)) {
                     console.log('top here is ' + top);
                     let canContinue = checkNewRowOrLoose()
                     console.log('can continue ' + canContinue);
