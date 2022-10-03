@@ -11,19 +11,30 @@
     <audio src="/assets/piano.mp3" type="audio/mpeg" autoplay></audio>
     <div id="contain">
         <nav>
-            <a href="/index.html"><span class="material-symbols-outlined">home</span></a>
-            <div class="conter">Score: <span id="counter">0</span>
+            <ul>
+                <li><a href="/index.html"><span class="material-symbols-outlined">home</span></a></li>
+                <li><span class="score">Score: </span><span id="counter">0</span></li>
+            </ul>
+            <p>Best Score: <span class="best">0</span></p>
         </nav>
 
         <section id="tiles">
 
             <div class="rows"></div>
             <div class="hidden low">
-                
+                <button title="reset" id="play" type="reset" onclick="location.reload()">reset</button>
+
             </div>
         </section>
     </div>
-    <button title="reset" id="play" type="reset" onclick="location.reload()">reset</button>
+
+    <div class="modal">
+        <div class="modal-header">Game over!!</div>
+        <div class="modal-body">Do you want to start a new game?</div>
+        <div class="modal-footer">
+            <div class="close">Close</div><div class="confirm">Play again</div>
+        </div>
+    </div>
 
     <script src="/js/main.js" defer></script>
 </body>

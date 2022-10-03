@@ -1,5 +1,3 @@
-
-
 /*high = [15,25,35]; // localStorage
 translate value = 20px
 count = 0  1 2 3 4 5 6
@@ -30,15 +28,45 @@ if(count > max(high)){
 const tiles = document.querySelector('#tiles')
 const rows = document.querySelector('.rows')
 const counter = document.querySelector('#counter');
+const modal = document.querySelector('.modal')
+const best = document.querySelector('.best')
 // always start from this value in mind
 const tilesPosition =  tiles.getBoundingClientRect().top;
 let growth;
-
+let len;
+let tries = 0;
+let score = 0;
+let speed = 60;
 // get the size of the element.
 const rowSize = 100;
 
+if(!localStorage.hasOwnProperty('maxScore')) {
+    localStorage.setItem('maxScore','0')
+}
+
+// close modal
+document.querySelector('.close').addEventListener('click', () => {
+    modal.style.display= 'none';
+})
+
+// close modal
+document.querySelector('.confirm').addEventListener('click', () => {
+    location.reload();
+        modal.style.display= 'none';
+})
+
+
+
 const updateCounter = () => {
-    counter.textContent = Number(counter.textContent) + 1
+    let maxScoreStr = localStorage.hasOwnProperty('maxScore') ? localStorage.getItem('maxScore') : '0';
+    let maxScoreNbr = Number(maxScoreStr)
+    score  = Number(counter.textContent) + 1;
+    if(score > maxScoreNbr) {
+        console.log('maxScore' + score)
+        localStorage.setItem('maxScore',score);
+        best.textContent = score;
+    }
+    counter.textContent = score;
 }
 
 (() => {
@@ -50,10 +78,6 @@ const numberOfBlackTile = 1;
 const numberOfRows = 4;
 let gameIsOver = 0;
 
-let top = 0;
-let tries = 0;
-let score = 0;
-
 let isTest = true;
 
 // add click on children
@@ -64,12 +88,29 @@ rows.addEventListener('click',(e) => {
             e.target.classList.remove('black');
             const music = new Audio(src="/assets/mario_coin.mp3", volume="1");
             music.play();
-            updateCounter();
+            // get the length of row in the board
+            len = Array.from(rows.querySelectorAll('.row')).length;
+
+            // don't let people increase the score if game has ended
+             let canScore = localStorage.getItem('canScore');
+            if(canScore === 'true') updateCounter();
 
         } else {
             const music = new Audio(src="/assets/mario_die.mp3");
             music.play();
             clearInterval();
+            clearInterval(growth);
+            let canScore = localStorage.setItem('canScore','false');
+            len = 20;
+            showModal()
+                if(rows.hasChildNodes()) {
+                    //e.firstElementChild can be used.
+                        let child = rows.lastElementChild;
+                while (child) {
+                    rows.removeChild(child);
+                    child = rows.lastElementChild;
+                }
+                }
             console.log('you loose!')
             return false;
         }
@@ -84,10 +125,7 @@ let limitPosition = initialPosition + tilesPosition + (1 * rowSize);
 
 function createARow(addColor = true) {
 
-    // get the length of row in the board
-    let len = Array.from(rows.querySelectorAll('.newRow')).length;
-
-                    // create a  new row
+        // create a  new row
         let row = document.createElement('div')
         row.classList.add('newRow');
         let arrOfBlack = [];
@@ -115,7 +153,6 @@ function createARow(addColor = true) {
                 }
                 row.append(c);
             }
-        let speed = 40;
         rows.insertAdjacentElement('afterbegin',row)
 
         return row;
@@ -145,6 +182,10 @@ function checkNewRowOrLoose() {
     return true;
 }
 
+// Show the Modal
+function showModal() {
+    modal.style.display = 'block';
+}
 
 let idCount = 0;
 // 3012 : 200
@@ -152,14 +193,20 @@ let idCount = 0;
 let startingCoordonate = 0;
 
 let endOfGame = false;
-let speed = 60;
 let newRow;
 
 function play(){
-
+    let maxScoreStr = localStorage.hasOwnProperty('maxScore') ? localStorage.getItem('maxScore') : '0';
+    best.textContent = maxScoreStr;
+    localStorage.setItem('canScore','true');
     // get the length of row in the board
     let len = Array.from(rows.querySelectorAll('.row')).length;
+    console.log("speed " + speed);
+    console.log("score " + score);
+
+    let currentSpeed = speed + score;
     if(len < 6) {
+        console.log('current speed ' + currentSpeed);
         createARow(isTest);
         let height = 1;
         let growth = setInterval((selector) => {
@@ -171,13 +218,21 @@ function play(){
 
                 let lastElement = rows.lastElementChild;
                 let top = lastElement.getBoundingClientRect().top
+                
                 if(Math.ceil(top)  === Math.ceil(limitPosition)) {
                     console.log('top here is ' + top);
                     let canContinue = checkNewRowOrLoose()
+                    if(!canContinue) {
+                        localStorage.setItem('canScore','false')
+                        len = 20;
+                        showModal();
+                        return false;
+                    }
                     console.log('can continue ' + canContinue);
                 }
-                play()
                 clearInterval(growth)
+                // we continue to play here, if was false, we don't access here
+                play()
             }
 
 
@@ -185,7 +240,7 @@ function play(){
 
             selector.style.height =  `${height++}px`
 
-
+            // speed of the game will automatically increase with the score going up
         },1000/speed,rows.firstElementChild)
      }
 
