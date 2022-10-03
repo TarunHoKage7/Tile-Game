@@ -3,6 +3,11 @@
     margin: 0
 }
 
+:root {
+    --size: 100;
+    --c-body: #160820
+}
+
 body{
     background: #160820;
     
@@ -10,10 +15,6 @@ body{
 
 h2{
     color: yellow;
-}
-
-embed{
-    display: none;
 }
 
 .doofen{
@@ -33,7 +34,7 @@ img{
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-
+    margin: 0 auto;
 }
 
 nav{
@@ -53,8 +54,8 @@ nav{
     border: 1px solid black;
     align-items: center;
     width: 80%;
-    margin-top: 140px;
-    height: 610px;
+    margin-top: 0px;
+    height: calc(6*var(--size) * 1px);
 }
 
 .hidden{
@@ -63,20 +64,22 @@ nav{
 }
 
 .top, .low, .row{
-    height: 120px;
+    height: calc(1*var(--size) * 1px);
     width: 100%;
 }
 
 .top{
     position: absolute;
-    top: -2px;
-    border: 2px #160820 solid;
+    top: 0;
+    background: var(--c-body);
 }
 
 .low{
     position: absolute;
-    bottom: -115px;
-    border: 2px #160820 solid;
+    bottom: 0;
+    background: red;
+    border: none;
+    outline: none;
 }
 
 .rows{
@@ -94,7 +97,18 @@ nav{
     grid-template-columns: repeat(3, 1fr);
 }
 
+.newRow {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+height:1px;
+width: 100%;
+}
+
 .card{
     background-color: aliceblue;
     outline: 1px solid black;
+}
+
+.black {
+    background-color: black;
 }
