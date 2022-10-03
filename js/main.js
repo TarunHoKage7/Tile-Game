@@ -40,13 +40,45 @@ let speed = 60;
 // get the size of the element.
 const rowSize = 100;
 
+const cardsNumber = 3;
+const numberOfBlackTile = 1;
+const numberOfRows = 4;
+let gameIsOver = 0;
+
+let isTest = true;
+
+let idCount = 0;
+// 3012 : 200
+
+let startingCoordonate = 0;
+
+let endOfGame = false;
+let newRow;
+
 if(!localStorage.hasOwnProperty('maxScore')) {
     localStorage.setItem('maxScore','0')
+}
+
+
+     /**
+ * delete all the rows inside the row container
+ */
+      function clearRows() {
+        if(rows.hasChildNodes()) {
+        //e.firstElementChild can be used.
+            let child = rows.lastElementChild;
+            while (child) {
+                rows.removeChild(child);
+                child = rows.lastElementChild;
+        }
+}
+clearInterval(growth)
 }
 
 // close modal
 document.querySelector('.close').addEventListener('click', () => {
     modal.style.display= 'none';
+    clearRows();
 })
 
 // close modal
@@ -71,14 +103,6 @@ const updateCounter = () => {
 
 (() => {
     console.log('in function')
-// initialize variables
-
-const cardsNumber = 3;
-const numberOfBlackTile = 1;
-const numberOfRows = 4;
-let gameIsOver = 0;
-
-let isTest = true;
 
 // add click on children
 rows.addEventListener('click',(e) => {
@@ -98,19 +122,11 @@ rows.addEventListener('click',(e) => {
         } else {
             const music = new Audio(src="/assets/mario_die.mp3");
             music.play();
-            clearInterval();
             clearInterval(growth);
             let canScore = localStorage.setItem('canScore','false');
             len = 20;
-            showModal()
-                if(rows.hasChildNodes()) {
-                    //e.firstElementChild can be used.
-                        let child = rows.lastElementChild;
-                while (child) {
-                    rows.removeChild(child);
-                    child = rows.lastElementChild;
-                }
-                }
+            showModal();
+            clearRows();
             console.log('you loose!')
             return false;
         }
@@ -187,14 +203,6 @@ function showModal() {
     modal.style.display = 'block';
 }
 
-let idCount = 0;
-// 3012 : 200
-
-let startingCoordonate = 0;
-
-let endOfGame = false;
-let newRow;
-
 function play(){
     let maxScoreStr = localStorage.hasOwnProperty('maxScore') ? localStorage.getItem('maxScore') : '0';
     best.textContent = maxScoreStr;
@@ -217,6 +225,7 @@ function play(){
                 // get the position of the last element.
 
                 let lastElement = rows.lastElementChild;
+                if(lastElement){
                 let top = lastElement.getBoundingClientRect().top
                 
                 if(Math.ceil(top)  === Math.ceil(limitPosition)) {
@@ -233,7 +242,7 @@ function play(){
                 clearInterval(growth)
                 // we continue to play here, if was false, we don't access here
                 play()
-            }
+                            }}
 
 
 
@@ -241,7 +250,7 @@ function play(){
             selector.style.height =  `${height++}px`
 
             // speed of the game will automatically increase with the score going up
-        },1000/speed,rows.firstElementChild)
+        },1000/currentSpeed,rows.firstElementChild)
      }
 
 }

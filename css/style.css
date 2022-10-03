@@ -55,7 +55,7 @@ img{
     height: 50%;
 }
 
-#play > a{
+#play > a, .low > button {
     background-color: rgb(215, 239, 52);
     color: #180624;
     font-size: large;
@@ -80,9 +80,13 @@ img{
 nav{
     background-color: rgb(214, 207, 207);
     width: 100%;
-    padding: 10px;
+    padding: 10px 0 10px 0;
     display: flex;
     flex-direction: column;
+}
+
+nav > *{
+    padding: 0 15px;
 }
 
 nav > ul {
@@ -230,5 +234,6 @@ nav p {
         height: 200px;
         min-height:200px;
     }
+    
 
 }
