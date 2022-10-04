@@ -172,7 +172,8 @@ const updateCounter = () => {
     if (e.target !== null) {
       if (e.target.classList.contains("black")) {
         e.target.classList.remove("black");
-
+        const music = new Audio(src="/assets/mario_coin.mp3");
+        music.play();
 
         const index = Array.from(e.target.parentElement.parentElement.children).indexOf(e.target.parentElement);
         console.log(index)
@@ -183,7 +184,8 @@ const updateCounter = () => {
         let canScore = localStorage.getItem("canScore");
         if (canScore === "true") updateCounter();
       } else {
-        //   const music = new Audio(src="/assets/piano.mp3");
+        const music = new Audio(src="/assets/mario_die.mp3");
+        music.play();
         gameOver();
 
         return false;
@@ -251,8 +253,8 @@ const updateCounter = () => {
       // if has black => loose position
       while (lastElement.hasChildNodes()) {
         if (lastElement.firstChild.classList.contains("black")) {
-          //     const music = new Audio(src="/assets/piano.mp3");
-          //    music.play();
+            const music = new Audio(src="/assets/mario_die.mp3");
+            music.play();
           // we can't continue, he loose a life
           return false;
         } else {
