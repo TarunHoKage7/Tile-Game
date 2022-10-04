@@ -4,28 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <title>GameScreen</title>
 </head>
 <body>
-    <audio src="/assets/piano.mp3" type="audio/mpeg" autoplay></audio>
+    <audio src="/assets/doofenshmirtz_evil_i.mp3" type="audio/mpeg" autoplay></audio>
     <div id="contain">
         <nav>
             <ul>
-                <li><a href="/index.html"><span class="material-symbols-outlined">home</span></a></li>
-                <li><span class="score">Score: </span><span id="counter">0</span></li>
+                <li><a href="/index.html">Go Home</a></li>
+                <li><span class="score">Score:</span> <span id="counter">0</span></li>
             </ul>
-            <p>Best Score: <span class="best">0</span></p>
+            <ul>
+                <li>Best score: <span class="best">0</span></li>
+                <li>Speed: <span class="speed">50</span></li>
+            </ul>
         </nav>
 
         <section id="tiles">
 
             <div class="rows"></div>
             <div class="hidden low">
-                <button title="reset" type="reset" onclick="location.reload()">reset</button>
+                <span class="speedMe">Speed</span>
+    <button title="reset" type="reset" onclick="location.reload()">reset</button>
 
             </div>
         </section>
+                   <p class="info">If you click, don't press the matter!</p>
+
     </div>
 
     <div class="modal">
@@ -36,6 +41,6 @@
         </div>
     </div>
 
-    <script src="/js/main.js" defer></script>
+     <script src="/js/main.js" defer></script>
 </body>
 </html>
